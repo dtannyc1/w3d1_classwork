@@ -59,17 +59,45 @@ class Array
         end
         new_array
     end
+
+    def my_rotate(value = 1)
+        new_array = []
+        new_value = value % self.length
+        (new_value...self.length).each { |i| new_array << self[i]}
+        (0...new_value).each { |i| new_array << self[i] }
+        new_array
+    end
+
+    def my_join(str = "")
+        string = ""
+        self.each_with_index do |ele, i|
+            if i != self.length - 1 
+                string += ele + str 
+            else
+                string += ele
+            end
+        end
+        string
+    end
+
+    def my_reverse
+        new_array = []
+        (-(self.length)..-1).each do |i|
+            new_array.unshift(self[i])
+        end
+        new_array
+    end
 end
 
-a = [ 4, 5, 6 ]
-b = [ 7, 8, 9 ]
-p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
-p [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
+# a = [ 4, 5, 6 ]
+# b = [ 7, 8, 9 ]
+# p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+# p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
+# p [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
 
-c = [10, 11, 12]
-d = [13, 14, 15]
-p [1, 2].my_zip(a, b, c, d)
+# c = [10, 11, 12]
+# d = [13, 14, 15]
+# p [1, 2].my_zip(a, b, c, d)
 
 # p [1, 2, 3, [4, [5, 6]], [[[7]], 8]].my_flatten
 
@@ -94,3 +122,16 @@ p [1, 2].my_zip(a, b, c, d)
 # p a.my_any? { |num| num == 4 } # => false
 # p a.my_all? { |num| num > 1 } # => false
 # p a.my_all? { |num| num < 4 } # => true
+
+# a = [ "a", "b", "c", "d" ]
+# p a.my_rotate         #=> ["b", "c", "d", "a"]
+# p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
+# p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
+# p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
+
+# a = [ "a", "b", "c", "d" ]
+# p a.my_join         # => "abcd"
+# p a.my_join("$")    # => "a$b$c$d"
+
+# p [ "a", "b", "c" ].my_reverse   #=> ["c", "b", "a"]
+# p [ 1 ].my_reverse               #=> [1]

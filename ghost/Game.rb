@@ -1,10 +1,10 @@
-# require_relative "./dictionary.txt"
+require "./Player.rb"
 
 class Game
     attr_reader :current_player, :previous_player
     def initialize(player_1, player_2)
-        @player_1 = player_1
-        @player_2 = player_2
+        @player_1 = Player.new(player_1)
+        @player_2 = Player.new(player_2)
         @current_player = @player_1
         @previous_player = @player_2
         @fragment = ""
@@ -14,10 +14,12 @@ class Game
     end
 
     def play_round()
-        while @dictionary[@fragment]
-            take_turn(@current_player)
-            # check if fragment is in dictionary
-            next_player!
+        while !@dictionary[@fragment]
+            if take_turn(@current_player)
+                puts "#{@current_player} YOU LOSE !!!"
+            else
+                next_player!
+            end
         end
     end
 
@@ -31,7 +33,13 @@ class Game
     end
 
     def take_turn(player)
-
+        str = player.guess
+        while !valid_play?(str)
+            player.alert_invalid_guess
+            str = player.guess 
+        end
+        @fragment += str
+        return @dictionary[@fragment]
     end
 
     def valid_play?(string)

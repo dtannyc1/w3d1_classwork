@@ -87,6 +87,8 @@ class Array
         end
         new_array
     end
+
+    
 end
 
 # a = [ 4, 5, 6 ]

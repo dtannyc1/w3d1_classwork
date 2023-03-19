@@ -24,6 +24,18 @@ class Array
         self.my_each { |ele| new_array << ele if !prc.call(ele)}
         new_array
     end
+
+    def my_any?(&prc)
+        self.my_each { |ele| return true if prc.call(ele)}
+        false
+    end
+
+    def my_all?(&prc)
+        self.my_each { |ele| return false if !prc.call(ele)}
+        true
+    end
+
+    def 
 end
 
 # return_value = [1, 2, 3].my_each do |num|
@@ -38,6 +50,12 @@ end
 # p a.my_select { |num| num > 1 } # => [2, 3]
 # p a.my_select { |num| num == 4 } # => []
 
-a = [1, 2, 3]
-p a.my_reject { |num| num > 1 } # => [1]
-p a.my_reject { |num| num == 4 } # => [1, 2, 3]
+# a = [1, 2, 3]
+# p a.my_reject { |num| num > 1 } # => [1]
+# p a.my_reject { |num| num == 4 } # => [1, 2, 3]
+
+# a = [1, 2, 3]
+# p a.my_any? { |num| num > 1 } # => true
+# p a.my_any? { |num| num == 4 } # => false
+# p a.my_all? { |num| num > 1 } # => false
+# p a.my_all? { |num| num < 4 } # => true

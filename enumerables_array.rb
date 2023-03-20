@@ -35,8 +35,43 @@ class Array
         true
     end
 
-    def 
+    def my_flatten
+        new_array = []
+
+        self.each do |ele|
+            if !ele.is_a?(Array)
+                new_array << ele
+            else
+                new_array += ele.my_flatten
+            end
+        end
+
+        new_array
+    end
+
+    def my_zip(*args)
+        new_array = Array.new(self.length) { Array.new()}
+        self.each_with_index do |ele_1, i|
+            new_array[i] << ele_1
+            args.each do |ele_2|
+                new_array[i] << ele_2[i]
+            end
+        end
+        new_array
+    end
 end
+
+a = [ 4, 5, 6 ]
+b = [ 7, 8, 9 ]
+p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
+p [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
+
+c = [10, 11, 12]
+d = [13, 14, 15]
+p [1, 2].my_zip(a, b, c, d)
+
+# p [1, 2, 3, [4, [5, 6]], [[[7]], 8]].my_flatten
 
 # return_value = [1, 2, 3].my_each do |num|
 #     puts num
